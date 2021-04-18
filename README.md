@@ -5,6 +5,9 @@ coevent is a coroutine library for C, based on ["ae"](https://github.com/redis/r
 example:
 
 ```c
+/*
+ * clean up after the coroutine end
+ */
 static void ce_done(struct coevent *ce, int err){
     if(NULL == ce){
         return; //relax take it easy, for there is nothing that we can do
