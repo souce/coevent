@@ -52,7 +52,7 @@ static COEVENT_COROUTINE(ce_process(struct coevent *ce)){
         //wait for the read event to be triggered before proceeding
         COEVENT_YIELD_UNTIL(ce, cli->cli_fd, EVENTS_READABLE, MAX_WAIT_TIMEOUT);
         if(AIO_ERR == aio_read(cli->cli_fd, (byte *)cli->req_buf, sizeof(cli->req_buf), &(cli->readn))){
-            break; //connect closed by peer, or other exception
+            break; //connection reset by peer, or other exception
         }
         if(HTTP_OK == http_parse_request_line(cli)){
             break; //request line read complete
