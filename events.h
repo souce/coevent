@@ -21,8 +21,7 @@
 extern "C" {
 #endif
 
-    //#define HAVE_EPOLL 1 //for ae
-    #include "ae.h"  //the Redis Ae event loop
+    #include "ae.h"  //the Redis ae event loop
     
     #define EVENTS_OK AE_OK
     #define EVENTS_ERR AE_ERR
