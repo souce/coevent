@@ -21,7 +21,7 @@
 extern "C" {
 #endif
     
-    #define HAVE_EPOLL 1 //for ae
+    #define HAVE_EPOLL 1 //for Redis ae
     
 #ifdef __cplusplus
 }
