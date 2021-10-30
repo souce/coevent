@@ -36,6 +36,7 @@ static COEVENT_COROUTINE(ce_process(struct coevent *ce)){
     //define local variables for coroutines
     struct{
         int retry;
+        //Other variables ...
     } *local_vars = COEVENT_GET_VARS(ce, sizeof(*local_vars));
     if(NULL == local_vars){
         printf("init local variables err, errno:%d, client ip:%s", errno, cli->ip);
