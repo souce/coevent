@@ -75,7 +75,7 @@ int events_create_io(events *loop, int fd, int mask, events_file_proc *proc, voi
     return EVENTS_ERR;
 }
 
-void events_remove_io_mask(events *loop, int fd, int mask){
+void events_delete_io(events *loop, int fd, int mask){
     if(NULL != loop && 0 <= fd && AE_NONE != mask){
         aeDeleteFileEvent(loop, fd, mask);
     }
@@ -99,7 +99,7 @@ static int time_proc(events *loop, long long id, void *data){
     int event = EVENTS_ERR;
     if(0 <= once->io_fd){
         //a timer callback related to IO, which means that this is an IO timeout event
-        events_remove_io_mask(loop, once->io_fd, EVENTS_READABLE|EVENTS_WRITABLE);
+        events_delete_io(loop, once->io_fd, EVENTS_READABLE|EVENTS_WRITABLE);
         event = EVENTS_TIMEOUT;
     }else{
         //time is up
@@ -114,7 +114,7 @@ static void file_proc(events *loop, int fd, void *data, int event){
     events_once_event *once = (events_once_event *)data;
     events_once_proc *proc = once->proc;
     void *clientData = once->clientData;
-    events_remove_io_mask(loop, fd, (EVENTS_READABLE|EVENTS_WRITABLE)); //the IO callback is disposable
+    events_delete_io(loop, fd, (EVENTS_READABLE|EVENTS_WRITABLE)); //the IO callback is disposable
     events_delete_timer(loop, once->timer_id); //stop the timeout event corresponding to the IO event
     free(once);
     proc(loop, event, clientData);
